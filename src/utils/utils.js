@@ -7,31 +7,43 @@ export class StringCalculator {
 
       return result
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   }
 
   static formatString(str) {
     let currentChar = ""
     let result = []
-
+    let negativeNumbers = []
+  
     for (let i = 0; i < str.length; i++) {
       const char = str[i]
-      if (char >= "0" && char <= "9") {
+      if (char >= "0" && char <= "9" || char === '-') {
         currentChar += char
       } else {
         if (currentChar) {
-          result.push(parseFloat(currentChar))
+          if (currentChar[0] === '-') {
+            negativeNumbers.push(parseFloat(currentChar))
+          } else {
+            result.push(parseFloat(currentChar))
+          }
           currentChar = ""
         }
       }
     }
-
+  
     if (currentChar) {
-      result.push(parseFloat(currentChar))
-      currentChar = ""
+      if (currentChar[0] === '-') {
+        negativeNumbers.push(parseFloat(currentChar))
+      } else {
+        result.push(parseFloat(currentChar))
+      }
     }
 
+    if(negativeNumbers.length > 0){
+      throw new Error(`Negative numbers are not allowed ${negativeNumbers.toString()}`)
+    }
+  
     return result
   }
 }

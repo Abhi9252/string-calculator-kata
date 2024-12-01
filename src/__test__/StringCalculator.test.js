@@ -31,6 +31,5 @@ test('Support different delimiters', () => {
 });
 
 test('Calling add with a negative number will throw an exception', () => {
-    const result = StringCalculator.add("//;\n1;2,-1")
-    expect(result).toThrow("Negative numbers not allowed")
+    expect(() => StringCalculator.add("//;\n1;2,-1,4,-5")).toThrow("Error: Negative numbers are not allowed -1,-5");
 });

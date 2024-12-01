@@ -6,8 +6,12 @@ const Calculator = () => {
     const [calculationResult, setCalculationResult] = useState("")
 
     const handleCalculation = () => {
-        const result = StringCalculator.add(calculationString)
-        setCalculationResult(result)
+        try {
+            const result = StringCalculator.add(calculationString)
+            setCalculationResult(result)
+        } catch (error) {
+            console.log("Error", error)
+        }
     }
     return (
         <div>
